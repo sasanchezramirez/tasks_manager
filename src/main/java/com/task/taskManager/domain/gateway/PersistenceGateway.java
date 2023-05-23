@@ -2,10 +2,12 @@ package com.task.taskManager.domain.gateway;
 
 import com.task.taskManager.domain.models.Task;
 
+import java.util.Optional;
+
 
 public interface PersistenceGateway {
     Task createTask(Task task);
-    Task getTaskById(Long id);
-    Task updateTask(Task task, Long id);
-    boolean deleteTask(Long id);
+    Optional<Task> getTaskById(Integer id);
+    Optional<Task> updateTask(Task task);
+    Boolean deleteTask(Integer id);
 }
