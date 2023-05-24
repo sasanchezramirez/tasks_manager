@@ -6,7 +6,6 @@ import com.task.taskManager.domain.infrastructure.drivenadapter.persistencia.map
 import com.task.taskManager.domain.infrastructure.drivenadapter.persistencia.repository.TaskRepository;
 import com.task.taskManager.domain.models.Task;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -16,36 +15,47 @@ public class PersistenceService implements PersistenceGateway {
     private static final Logger logger = Logger.getLogger(PersistenceService.class.getName());
     private final TaskRepository taskRepository;
     private final TaskMapper taskMapper;
+    private final TaskEntity taskEntity;
+
+    /**
+     * @see PersistenceService#createTask(Task)
+     */
     @Override
     public Task createTask(Task task) {
         logger.info("Petition was sent to create a task");
-        TaskEntity taskEntity = taskMapper.taskToTaskEntity(task);
-        TaskEntity createdTaskEntity = taskRepository.createTask(taskEntity);
-        return taskMapper.taskEntityToTask(createdTaskEntity);
+        this.taskMapper.taskToTaskEntity(task);
+        TaskEntity createdTaskEntity = this.taskRepository.save(taskEntity);
+        return this.taskMapper.taskEntityToTask(createdTaskEntity);
     }
-
+    /**
+     * @see PersistenceService#getTaskById(Integer)
+     */
     @Override
     public Optional<Task> getTaskById(Integer id) {
         logger.info("Petition was sent to get a task");
-        return taskRepository.getTaskById(id)
+        return this.taskRepository.findById(id)
                 .map(this.taskMapper::taskEntityToTask);
     }
-
+    /**
+     * @see PersistenceService#updateTask(Task)
+     */
     @Override
     public Optional<Task> updateTask(Task task) {
         logger.info("Petition was sent to update a task");
-        if (taskRepository.existsById(task.getId())){
-            TaskEntity taskEntity = taskMapper.taskToTaskEntity(task);
-            TaskEntity updatedTaskEntity = taskRepository.createTask(taskEntity);
-            return Optional.ofNullable(taskMapper.taskEntityToTask(updatedTaskEntity));
+        if (this.taskRepository.existsById(task.getId())){
+            TaskEntity taskEntity = this.taskMapper.taskToTaskEntity(task);
+            TaskEntity updatedTaskEntity = this.taskRepository.save(taskEntity);
+            return Optional.ofNullable(this.taskMapper.taskEntityToTask(updatedTaskEntity));
         }
         return Optional.empty();
     }
-
+    /**
+     * @see PersistenceService#deleteTask(Integer)
+     */
     @Override
     public Boolean deleteTask(Integer id) {
-        if (taskRepository.existsById(id)){
-            taskRepository.deleteById(id);
+        if (this.taskRepository.existsById(id)){
+            this.taskRepository.deleteById(id);
             return true;
         }
         return false;
