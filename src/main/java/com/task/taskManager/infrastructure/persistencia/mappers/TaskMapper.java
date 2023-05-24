@@ -1,6 +1,6 @@
-package com.task.taskManager.domain.infrastructure.drivenadapter.persistencia.mappers;
+package com.task.taskManager.infrastructure.persistencia.mappers;
 
-import com.task.taskManager.domain.infrastructure.drivenadapter.persistencia.entities.TaskEntity;
+import com.task.taskManager.infrastructure.persistencia.entities.TaskEntity;
 import com.task.taskManager.domain.models.Task;
 import lombok.AllArgsConstructor;
 

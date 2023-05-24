@@ -1,4 +1,4 @@
-package com.task.taskManager.domain.infrastructure.drivenadapter.persistencia.entities;
+package com.task.taskManager.infrastructure.persistencia.entities;
 
 import lombok.Getter;
 import lombok.Setter;
