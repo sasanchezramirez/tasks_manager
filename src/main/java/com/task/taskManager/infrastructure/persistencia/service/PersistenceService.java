@@ -36,11 +36,12 @@ public class PersistenceService implements PersistenceGateway {
         return this.taskRepository.findById(id)
                 .map(this.taskMapper::taskEntityToTask);
     }
+
     /**
-     * @see PersistenceService#updateTask(Task)
+     * @see PersistenceService#updateTask(Task, Integer)
      */
     @Override
-    public Optional<Task> updateTask(Task task) {
+    public Optional<Task> updateTask(Task task, Integer id) {
         logger.info("Petition was sent to update a task");
         if (this.taskRepository.existsById(task.getId())){
             TaskEntity taskEntity = this.taskMapper.taskToTaskEntity(task);

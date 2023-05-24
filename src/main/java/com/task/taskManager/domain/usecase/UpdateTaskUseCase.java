@@ -9,7 +9,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UpdateTaskUseCase {
     private final PersistenceGateway persistenceGateway;
-    public Optional<Task> updateTask(Task task){
-        return persistenceGateway.updateTask(task);
+    public Optional<Task> updateTask(Task task, Integer id){
+        return persistenceGateway.updateTask(task, id);
     }
 }

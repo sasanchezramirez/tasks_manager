@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface PersistenceGateway {
     Task createTask(Task task);
     Optional<Task> getTaskById(Integer id);
-    Optional<Task> updateTask(Task task);
+    Optional<Task> updateTask(Task task, Integer id);
     Boolean deleteTask(Integer id);
 }
